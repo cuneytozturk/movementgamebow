@@ -6,5 +6,7 @@ class_name BaseWeapon
 @export var damage: int = 10
 @export var fire_rate: float = 0.5 # seconds between shots
 
-func fire():
-	print("Firing", weapon_name)
+func start_fire():
+	pass
+func stop_fire():
+	pass

@@ -45,7 +45,7 @@ var current_weapon: BaseWeapon
 func _ready() -> void:
 	Global.player = self
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
-	equip_weapon(load("res://scenes/ak_472.tscn"))
+	equip_weapon(load("res://scenes/hand.tscn"))
 	
 func _unhandled_input(event: InputEvent) -> void:
 	# handle mouse input for camera
@@ -53,10 +53,11 @@ func _unhandled_input(event: InputEvent) -> void:
 		camera_mount.rotate_y(-event.relative.x * SENS)
 		camera.rotate_x(-event.relative.y * SENS)
 		camera.rotation.x = clamp(camera.rotation.x, deg_to_rad(-90), deg_to_rad(90))
-	
-	if event.is_action_pressed("fire"):
-		if current_weapon:
-			current_weapon.fire()
+	if current_weapon:
+		if event.is_action_pressed("fire"):
+				current_weapon.start_fire()
+		elif event.is_action_released("fire"):
+			current_weapon.stop_fire()
 
 func equip_weapon(weapon_scene: PackedScene):
 	if current_weapon:
