@@ -8,7 +8,7 @@ var can_fire = true
 
 
 func _ready():
-	bullet_scene = load("res://scenes/akbullet.tscn")
+	bullet_scene = load("res://scenes/bullet.tscn")
 
 func _physics_process(delta: float) -> void:
 	if firing && can_fire:

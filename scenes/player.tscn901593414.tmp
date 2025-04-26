@@ -130,8 +130,13 @@ _data = {
 [node name="player" type="CharacterBody3D"]
 collision_layer = 2
 script = ExtResource("1_3vyb7")
+SENS = null
+tilt_speed = null
 acceleration = 10.0
 deceleration = 2.0
+speed_limit = null
+BOB_FREQ = null
+BOB_AMP = null
 BASE_FOV = 90.0
 
 [node name="meshes" type="Node3D" parent="."]

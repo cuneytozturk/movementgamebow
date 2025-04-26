@@ -28,6 +28,7 @@ func Physics_Update(_delta : float):
 	var target_roll = deg_to_rad(camera_tilt_angle * camera_dir)
 	var current_roll = Global.player.camera_tilt.rotation.z
 	Global.player.camera_tilt.rotation.z = lerp_angle(current_roll, target_roll, _delta * tilt_speed)
+	Global.player.ground_movement()
 	
 	move()
 	if !Input.is_action_pressed("crouch") and !ceiling_check.is_colliding():

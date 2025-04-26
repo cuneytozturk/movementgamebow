@@ -4,6 +4,7 @@ func Enter():
 	pass
 
 func Physics_Update(_delta : float):
+	Global.player.ground_movement()
 	Global.player.reset_camera_rot(_delta)
 	
 	if Input.get_vector("left", "right", "forward", "backward") and Global.player.is_on_floor() :

@@ -8,7 +8,7 @@ func Enter():
 
 func Physics_Update(_delta : float):
 	Global.player.reset_camera_rot(_delta)
-	
+	Global.player.ground_movement()
 	if Input.is_action_pressed("jump"):
 		Transitioned.emit(self, "jump")
 	elif Input.is_action_pressed("crouch"):

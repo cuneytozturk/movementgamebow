@@ -10,6 +10,7 @@ func Enter():
 
 func Physics_Update(_delta : float):
 	Global.player.reset_camera_rot(_delta)
+	Global.player.air_movement(_delta)
 	
 	if Global.player.is_on_floor():
 		Transitioned.emit(self, "run")

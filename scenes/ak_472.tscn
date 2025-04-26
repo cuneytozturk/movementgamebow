@@ -1,7 +1,24 @@
-[gd_scene load_steps=8 format=3 uid="uid://s4hv3bldgg3c"]
+[gd_scene load_steps=8 format=3 uid="uid://bvhrykwrjrxha"]
 
 [ext_resource type="PackedScene" uid="uid://bga5gwaewr16h" path="res://assets/ak47.glb" id="1_fv6k6"]
-[ext_resource type="Script" uid="uid://bb31276mn3yje" path="res://scenes/ak47.gd" id="2_kavmf"]
+
+[sub_resource type="GDScript" id="GDScript_fv6k6"]
+script/source = "extends BaseWeapon
+@onready var muzzle: Node3D = $muzzle
+var bullet_scene : PackedScene
+
+func _ready():
+	bullet_scene = load(\"res://scenes/akbullet.tscn\")
+	
+func fire():
+	spawnBullet()
+
+func spawnBullet():
+	var bullet = bullet_scene.instantiate()
+	bullet.position = muzzle.global_position
+	bullet.transform.basis = muzzle.global_transform.basis
+	get_tree().current_scene.add_child(bullet)
+"
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_fv6k6"]
 albedo_color = Color(0.527865, 0.702195, 1, 1)
@@ -54,7 +71,7 @@ _data = {
 }
 
 [node name="ak472" instance=ExtResource("1_fv6k6")]
-script = ExtResource("2_kavmf")
+script = SubResource("GDScript_fv6k6")
 
 [node name="ak47" parent="." index="0"]
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, 0, 0)

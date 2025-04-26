@@ -17,9 +17,12 @@ extends CharacterBody3D
 var current_speed = 0.0
 var desired_speed = 0.0
 @export var speed_limit := 16
-var direction
-var input_dir
+var direction := Vector3.ZERO
+var air_direction := Vector3.ZERO
+var input_dir := Vector2.ZERO
+var desired_dir := Vector3.ZERO
 var allow_dir := true
+@export var air_control_strength = 1.5 # how much you can steer in air (30%)
 
 # wallrun vars
 @onready var raycast_left: RayCast3D = $camera_mount/raycast_left
@@ -81,6 +84,7 @@ func _physics_process(delta: float) -> void:
 	# apply gravity
 	if not is_on_floor():
 		velocity += get_gravity() * delta
+
 		
 	#accel/decel
 	if current_speed < desired_speed:
@@ -90,17 +94,16 @@ func _physics_process(delta: float) -> void:
 		current_speed -= deceleration * delta
 		current_speed = max(current_speed, desired_speed)
 	current_speed = clamp(current_speed, 0, speed_limit)
-	
-	# disable direction input by player
+
 	if allow_dir:
 		_headbob(delta)
 		input_dir = Input.get_vector("left", "right", "forward", "backward")
-		direction = (camera_mount.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
+		desired_dir = (camera_mount.basis * Vector3(input_dir.x, 0, input_dir.y))
 	else:
 		input_dir = Vector2.ZERO
-		direction = Vector3.ZERO  # prevent affecting velocity below
-	
-	# move player in direction * current_speed ELSE lerp to 0 by decel
+		direction = Vector3.ZERO
+
+	## move player in direction * current_speed ELSE lerp to 0 by decel
 	if direction:
 		velocity.x = direction.x * current_speed
 		velocity.z = direction.z * current_speed
@@ -109,7 +112,16 @@ func _physics_process(delta: float) -> void:
 		velocity.z = lerp(velocity.z, 0.0, delta * deceleration)
 		
 	move_and_slide()
-	
+
+func ground_movement():
+	direction = desired_dir.normalized()
+	air_direction = direction
+
+func air_movement(delta):
+	air_direction = air_direction.lerp(desired_dir.normalized(), air_control_strength * delta)
+	print (air_direction)
+	direction = air_direction.normalized()
+
 func _headbob(delta): 
 	var pos = Vector3.ZERO
 	var time = t_bob

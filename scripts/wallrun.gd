@@ -14,6 +14,7 @@ func Physics_Update(_delta : float):
 	var target_roll = deg_to_rad(camera_tilt_angle * tilt_direction)
 	var current_roll = Global.player.camera_tilt.rotation.z
 	Global.player.camera_tilt.rotation.z = lerp_angle(current_roll, target_roll, _delta * tilt_speed)
+	Global.player.ground_movement()
 	
 	# suspend gravity during wallrun
 	Global.player.velocity.y = 0
@@ -29,9 +30,11 @@ func Physics_Update(_delta : float):
 	
 	# reset wallrun cooldown and > jump state
 	if Input.is_action_just_pressed("jump"):
-		Global.player.wallrun_cooldown_timer = wallrun_cooldown
 		Transitioned.emit(self, "jump")
 	
 	# if no moving forward > exit wallrun state
 	if forward_input < 0.1 or Global.player.wall_direction == Vector3.ZERO:
 		Transitioned.emit(self, "run")
+
+func Exit():
+	Global.player.wallrun_cooldown_timer = wallrun_cooldown
