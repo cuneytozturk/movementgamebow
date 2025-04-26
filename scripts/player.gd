@@ -5,6 +5,7 @@ extends CharacterBody3D
 @onready var camera_tilt: Node3D = $camera_mount/camera_tilt
 @onready var anims: AnimationPlayer = $AnimationPlayer
 @onready var weapon_mount: Node3D = $camera_mount/camera_tilt/camera/weapon_mount
+@onready var collision: CollisionShape3D = $collision
 
 
 # camera sensitivity
@@ -12,7 +13,7 @@ extends CharacterBody3D
 @export var tilt_speed := 5.0
 
 # speed
-@export var acceleration = 70.0
+@export var acceleration = 15
 @export var deceleration = 3.0
 var current_speed = 0.0
 var desired_speed = 0.0
@@ -42,7 +43,9 @@ var t_bob = 0.0
 @export var BASE_FOV = 75.0
 var FOV_CHANGE = 1.5
 
+# hero vars
 var current_weapon: BaseWeapon
+var health = 100
 
 
 func _ready() -> void:
@@ -65,45 +68,28 @@ func _unhandled_input(event: InputEvent) -> void:
 func equip_weapon(weapon_scene: PackedScene):
 	if current_weapon:
 		current_weapon.queue_free()
-
 	current_weapon = weapon_scene.instantiate()
 	weapon_mount.add_child(current_weapon)
 
 func _physics_process(delta: float) -> void:
-	_speed_fov_change(delta)
-	
-	# wallrun cooldowns
-	if wallrun_cooldown_timer > 0:
-		wallrun_cooldown_timer -= delta
-	if is_on_floor(): #or wall_direction == Vector3.ZERO:
-		wallrun_ground_timer = 0.0
-	else:
-		wallrun_ground_timer += delta
-	wall_direction = get_wall_direction()
+	speed_fov_change(delta)
+	wallrun_cooldowns(delta)
+	acceldeccel(delta)
 	
 	# apply gravity
 	if not is_on_floor():
 		velocity += get_gravity() * delta
-
-		
-	#accel/decel
-	if current_speed < desired_speed:
-			current_speed += acceleration * delta
-			current_speed = min(current_speed, desired_speed)
-	elif current_speed > desired_speed:
-		current_speed -= deceleration * delta
-		current_speed = max(current_speed, desired_speed)
-	current_speed = clamp(current_speed, 0, speed_limit)
-
+	
+	# block player input but allow movement to continue
 	if allow_dir:
-		_headbob(delta)
+		headbob(delta)
 		input_dir = Input.get_vector("left", "right", "forward", "backward")
 		desired_dir = (camera_mount.basis * Vector3(input_dir.x, 0, input_dir.y))
 	else:
 		input_dir = Vector2.ZERO
 		direction = Vector3.ZERO
 
-	## move player in direction * current_speed ELSE lerp to 0 by decel
+	# move player in direction * current_speed ELSE lerp to 0 by decel
 	if direction:
 		velocity.x = direction.x * current_speed
 		velocity.z = direction.z * current_speed
@@ -119,10 +105,9 @@ func ground_movement():
 
 func air_movement(delta):
 	air_direction = air_direction.lerp(desired_dir.normalized(), air_control_strength * delta)
-	print (air_direction)
 	direction = air_direction.normalized()
 
-func _headbob(delta): 
+func headbob(delta): 
 	var pos = Vector3.ZERO
 	var time = t_bob
 	t_bob += delta * velocity.length() * float(is_on_floor())
@@ -130,10 +115,19 @@ func _headbob(delta):
 	pos.x = cos(time * BOB_FREQ / 2) * BOB_AMP
 	camera.transform.origin = pos
 	
-func _speed_fov_change(delta):
+func speed_fov_change(delta):
 	var velocity_clamped = clamp(velocity.length(), 0.5, 10 * 2)
 	var target_fov = BASE_FOV + FOV_CHANGE * velocity_clamped
 	camera.fov = lerp(camera.fov, target_fov, delta * 8)
+
+func wallrun_cooldowns(delta):
+	if wallrun_cooldown_timer > 0:
+		wallrun_cooldown_timer -= delta
+	if is_on_floor(): #or wall_direction == Vector3.ZERO:
+		wallrun_ground_timer = 0.0
+	else:
+		wallrun_ground_timer += delta
+	wall_direction = get_wall_direction()
 
 func get_wall_direction() -> Vector3:
 	if raycast_left.is_colliding() or raycast_leftbutt.is_colliding():
@@ -143,6 +137,21 @@ func get_wall_direction() -> Vector3:
 	else:
 		return Vector3.ZERO
 
+func acceldeccel(delta):
+	#accel/decel
+	if current_speed < desired_speed:
+			current_speed += acceleration * delta
+			current_speed = min(current_speed, desired_speed)
+	elif current_speed > desired_speed:
+		current_speed -= deceleration * delta
+		current_speed = max(current_speed, desired_speed)
+	current_speed = clamp(current_speed, 0, speed_limit)
+
 func reset_camera_rot(delta):
 	var current_roll = camera_tilt.rotation.z
 	camera_tilt.rotation.z  = lerp_angle(camera_tilt.rotation.z, 0.0, delta * tilt_speed)
+
+
+func _on_area_3d_body_entered(body: Node3D) -> void:
+	print("ow")
+	health -= 30

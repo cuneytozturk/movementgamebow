@@ -5,6 +5,7 @@ extends State
 
 @export var ANIM_SPEED = 7
 @export var SLIDE_SPEED = 0
+@export var SLIDE_DECEL = 5
 
 var timer := 0.0
 var slide_direction := Vector3.ZERO
@@ -17,6 +18,7 @@ func Enter():
 	anims.play("crouch", -1, ANIM_SPEED)
 	Global.player.desired_speed = SLIDE_SPEED
 	Global.player.current_speed = Global.player.current_speed * 1.6
+	Global.player.deceleration = SLIDE_DECEL
 	
 	# Lock in slide direction based on current movement
 	slide_direction = Global.player.velocity
@@ -29,6 +31,7 @@ func Physics_Update(_delta : float):
 	var current_roll = Global.player.camera_tilt.rotation.z
 	Global.player.camera_tilt.rotation.z = lerp_angle(current_roll, target_roll, _delta * tilt_speed)
 	Global.player.ground_movement()
+
 	
 	move()
 	if !Input.is_action_pressed("crouch") and !ceiling_check.is_colliding():
@@ -44,3 +47,4 @@ func move():
 func Exit():
 	anims.play("crouch", -1, -ANIM_SPEED, true)
 	Global.player.allow_dir=true
+	Global.player.deceleration = 3

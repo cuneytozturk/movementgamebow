@@ -13,6 +13,7 @@ mesh = SubResource("BoxMesh_e81f4")
 
 [node name="RayCast3D" type="RayCast3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0)
+collision_mask = 8
 
 [node name="Timer" type="Timer" parent="."]
 autostart = true

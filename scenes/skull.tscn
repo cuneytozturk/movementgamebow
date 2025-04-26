@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=3 uid="uid://dmndn48o4af0f"]
+[gd_scene load_steps=6 format=3 uid="uid://dmndn48o4af0f"]
 
 [ext_resource type="Script" uid="uid://bo6713v7kkolx" path="res://scripts/skull.gd" id="1_1bx6h"]
 
@@ -10,8 +10,14 @@ albedo_color = Color(0.580392, 0, 0, 1)
 [sub_resource type="SphereMesh" id="SphereMesh_6mw1b"]
 material = SubResource("StandardMaterial3D_pa1hf")
 
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_1bx6h"]
+
 [node name="CharacterBody3D" type="CharacterBody3D" groups=["enemy"]]
+collision_layer = 8
+collision_mask = 13
 script = ExtResource("1_1bx6h")
+move_speed = 9.0
+turn_speed = 6.0
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(1.5, 0, 0, 0, 1.5, 0, 0, 0, 1.5, 0, 0, 0)
@@ -20,3 +26,7 @@ shape = SubResource("SphereShape3D_sco77")
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 transform = Transform3D(1.5, 0, 0, 0, 1.5, 0, 0, 0, 1.5, 0, 0, 0)
 mesh = SubResource("SphereMesh_6mw1b")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.255, 0, 0, 0, -3.93403e-08, 0.31, 0, -0.9, -1.35505e-08, 0, 0, -0.595319)
+mesh = SubResource("CapsuleMesh_1bx6h")

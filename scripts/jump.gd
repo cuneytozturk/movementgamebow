@@ -3,10 +3,12 @@ extends State
 @export var JUMP_VELOCITY = 6
 @export var JUMP_AIR_SPEED = 8
 @export var wallrun_delay = 0.2
+@export var JUMP_DECEL = 1
 
 func Enter():
 	Global.player.desired_speed = JUMP_AIR_SPEED
 	Global.player.velocity.y += JUMP_VELOCITY
+	Global.player.deceleration = JUMP_DECEL
 
 func Physics_Update(_delta : float):
 	Global.player.reset_camera_rot(_delta)
@@ -22,4 +24,4 @@ func Physics_Update(_delta : float):
 		Transitioned.emit(self, "wallrun")
 
 func Exit():
-	pass
+	Global.player.deceleration = 3

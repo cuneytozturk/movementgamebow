@@ -1,4 +1,4 @@
-[gd_scene load_steps=33 format=3 uid="uid://dcw6xwtw73p1p"]
+[gd_scene load_steps=34 format=3 uid="uid://dcw6xwtw73p1p"]
 
 [ext_resource type="Texture2D" uid="uid://08qcwew68vxx" path="res://assets/kenney_prototype_textures/dark/texture_01.png" id="1_71j4m"]
 [ext_resource type="Texture2D" uid="uid://cg437ssdw3g8l" path="res://assets/kenney_prototype_textures/orange/texture_01.png" id="2_qfnet"]
@@ -6,6 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://5plh13oxukx3" path="res://assets/kenney_prototype_textures/red/texture_01.png" id="4_4mrxx"]
 [ext_resource type="Texture2D" uid="uid://cir6fws61i01q" path="res://assets/kenney_prototype_textures/purple/texture_01.png" id="5_7r4gi"]
 [ext_resource type="PackedScene" uid="uid://cnwgdkcffpr6h" path="res://scenes/player.tscn" id="6_qfnet"]
+[ext_resource type="Script" uid="uid://csmvwicpwoevs" path="res://scenes/spawner.gd" id="7_i7141"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_qfnet"]
 sky_horizon_color = Color(0.662243, 0.671743, 0.686743, 1)
@@ -297,3 +298,35 @@ size = Vector3(3, 0.5, 3)
 
 [node name="player" parent="." instance=ExtResource("6_qfnet")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.665049, 0)
+acceleration = 15
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 4096.0
+autostart = true
+
+[node name="spawner" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 8.9584, 0)
+script = ExtResource("7_i7141")
+
+[node name="spawner1" type="Node3D" parent="spawner"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 18.0003, 0, 0)
+
+[node name="spawner2" type="Node3D" parent="spawner"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 18.0003, 0, -24.5274)
+
+[node name="spawner3" type="Node3D" parent="spawner"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.13364, 0, -24.5274)
+
+[node name="spawner4" type="Node3D" parent="spawner"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -15.6029, 0, -24.5274)
+
+[node name="spawner5" type="Node3D" parent="spawner"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -15.6029, 0, 2.46161)
+
+[node name="spawner6" type="Node3D" parent="spawner"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -15.6029, 0, 23.4208)
+
+[node name="spawner7" type="Node3D" parent="spawner"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.809249, 0, 23.4208)
+
+[connection signal="timeout" from="Timer" to="spawner" method="_on_timer_timeout"]
