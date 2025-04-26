@@ -1,0 +1,79 @@
+[gd_scene load_steps=8 format=3 uid="uid://s4hv3bldgg3c"]
+
+[ext_resource type="PackedScene" uid="uid://bga5gwaewr16h" path="res://assets/ak47.glb" id="1_fv6k6"]
+[ext_resource type="Script" uid="uid://bb31276mn3yje" path="res://scenes/ak47.gd" id="2_kavmf"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_fv6k6"]
+albedo_color = Color(0.527865, 0.702195, 1, 1)
+metallic = 0.77
+metallic_specular = 0.77
+roughness = 0.3
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_kavmf"]
+albedo_color = Color(0.301961, 0.427451, 0.631373, 1)
+metallic = 0.56
+metallic_specular = 0.86
+
+[sub_resource type="Animation" id="Animation_kavmf"]
+length = 0.001
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ak47:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_fv6k6"]
+resource_name = "Shoot"
+length = 0.1
+step = 0.01
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ak47:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.0299419, 0.0948205),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(0, 0, 0.05), Vector3(0, 0, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_qqarj"]
+_data = {
+&"RESET": SubResource("Animation_kavmf"),
+&"Shoot": SubResource("Animation_fv6k6")
+}
+
+[node name="ak472" instance=ExtResource("1_fv6k6")]
+script = ExtResource("2_kavmf")
+
+[node name="ak47" parent="." index="0"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, 0, 0)
+cast_shadow = 0
+surface_material_override/0 = SubResource("StandardMaterial3D_fv6k6")
+
+[node name="akderriere_low" parent="ak47" index="0"]
+material_override = SubResource("StandardMaterial3D_kavmf")
+cast_shadow = 0
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." index="1"]
+libraries = {
+&"": SubResource("AnimationLibrary_qqarj")
+}
+
+[node name="RayCast3D" type="RayCast3D" parent="." index="2"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, -0.499336)
+target_position = Vector3(0, 90, 0)
+collide_with_areas = true
+
+[node name="muzzle" type="Node3D" parent="." index="3"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.018339, -0.490657)
