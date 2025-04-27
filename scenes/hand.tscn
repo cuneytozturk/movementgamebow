@@ -1,13 +1,14 @@
 [gd_scene load_steps=3 format=3 uid="uid://ds0rcl5wyl354"]
 
-[ext_resource type="Script" uid="uid://bu58nbtvoulca" path="res://scripts/hand.gd" id="1_eyfoh"]
+[ext_resource type="Script" uid="uid://bu58nbtvoulca" path="res://scripts/weapon/hand.gd" id="1_eyfoh"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_1gd3j"]
 size = Vector3(0.155, 0.06, 0.43)
 
 [node name="hand" type="Node3D"]
 script = ExtResource("1_eyfoh")
-fire_rate = 10.0
+damage = 1
+fire_rate = 30.0
 
 [node name="Mesh" type="MeshInstance3D" parent="."]
 mesh = SubResource("BoxMesh_1gd3j")

@@ -1,0 +1,32 @@
+[gd_scene load_steps=6 format=3 uid="uid://c3uylhvv0ds7"]
+
+[ext_resource type="Script" uid="uid://cj0u56an4q3fr" path="res://scripts/enemy/ghoul.gd" id="1_pn4bt"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_jdvld"]
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_v81jn"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ei4jr"]
+albedo_color = Color(0.693694, 0.00166609, 0.85736, 1)
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_fxkcu"]
+
+[node name="ghoul" type="CharacterBody3D" groups=["enemy"]]
+collision_layer = 8
+collision_mask = 9
+script = ExtResource("1_pn4bt")
+
+[node name="worldcoll" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+shape = SubResource("CapsuleShape3D_jdvld")
+
+[node name="mesh" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+mesh = SubResource("CapsuleMesh_v81jn")
+surface_material_override/0 = SubResource("StandardMaterial3D_ei4jr")
+
+[node name="nose" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.31, 0, 0, 0, -2.16371e-08, 0.43, 0, -0.495, -1.87959e-08, 0, 1.48843, -0.251041)
+mesh = SubResource("CapsuleMesh_fxkcu")
+
+[node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]

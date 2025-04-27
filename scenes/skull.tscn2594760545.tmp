@@ -12,7 +12,7 @@ material = SubResource("StandardMaterial3D_pa1hf")
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_1bx6h"]
 
-[node name="skull" type="CharacterBody3D" groups=["enemy"]]
+[node name="CharacterBody3D" type="CharacterBody3D" groups=["enemy"]]
 collision_layer = 8
 collision_mask = 13
 script = ExtResource("1_1bx6h")

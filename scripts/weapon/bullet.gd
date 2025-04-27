@@ -1,12 +1,12 @@
 extends Node3D
 
-const SPEED = 40.0
 const DAMAGE = 20.0
 @onready var ray: RayCast3D = $RayCast3D
+var velocity = Vector3.ZERO
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
-	position += transform.basis * Vector3(0, 0, -SPEED) * delta
+	position += velocity * delta
 	if ray.is_colliding():
 		if ray.get_collider().is_in_group("enemy"):
 			ray.get_collider().hit(DAMAGE)

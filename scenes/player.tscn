@@ -3,11 +3,11 @@
 [ext_resource type="Script" uid="uid://c1s643k11wqpa" path="res://scripts/player.gd" id="1_3vyb7"]
 [ext_resource type="Script" uid="uid://cp78m376rl80h" path="res://scripts/state.gd" id="2_g2els"]
 [ext_resource type="Script" uid="uid://dceojyxsonpip" path="res://scripts/statemachine.gd" id="2_qhqgy"]
-[ext_resource type="Script" uid="uid://b70orldahsmsg" path="res://scripts/idle.gd" id="3_dqkch"]
-[ext_resource type="Script" uid="uid://dw7rqjmuvms7w" path="res://scripts/run.gd" id="5_tuyoq"]
-[ext_resource type="Script" uid="uid://dxhllc1xdsfum" path="res://scripts/jump.gd" id="6_fjrip"]
+[ext_resource type="Script" uid="uid://b70orldahsmsg" path="res://scripts/playerstates/idle.gd" id="3_dqkch"]
+[ext_resource type="Script" uid="uid://dw7rqjmuvms7w" path="res://scripts/playerstates/run.gd" id="5_tuyoq"]
+[ext_resource type="Script" uid="uid://dxhllc1xdsfum" path="res://scripts/playerstates/jump.gd" id="6_fjrip"]
 [ext_resource type="Script" uid="uid://httd88m282be" path="res://scripts/wallrun.gd" id="7_smehm"]
-[ext_resource type="Script" uid="uid://5n1oiv0dfrlo" path="res://scripts/slide.gd" id="8_y4r1p"]
+[ext_resource type="Script" uid="uid://5n1oiv0dfrlo" path="res://scripts/playerstates/slide.gd" id="8_y4r1p"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_u8vuu"]
 

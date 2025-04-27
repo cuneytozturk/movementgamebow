@@ -153,5 +153,10 @@ func reset_camera_rot(delta):
 
 
 func _on_area_3d_body_entered(body: Node3D) -> void:
-	print("ow")
-	health -= 30
+	if body.is_in_group("enemy"):
+		print("ow")
+		health -= 30
+		if health <= 0:
+			print("Dead")
+			position = Vector3(0, 3, 0)
+			health = 100
