@@ -4,7 +4,7 @@ extends Enemy
 
 
 func _ready():
-	move_speed = 7
+	move_speed = 10
 	THINK_INTERVAL = 30
 	health = 100
 

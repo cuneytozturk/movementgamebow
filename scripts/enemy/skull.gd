@@ -8,9 +8,9 @@ extends Enemy
 var hover_offset := 0.0
 
 func _ready():
-	move_speed = 7
+	move_speed = 10
 	THINK_INTERVAL = 30
-	health = 30
+	health = 100
 
 func _physics_process(delta):
 	frame_skip(delta)
@@ -21,7 +21,7 @@ func frame_skip(delta):
 	if frame_counter % THINK_INTERVAL == 0:
 		physics_logic(delta)
 	
-func physics_logic(delta):
+func physics_logic(_delta):
 	look_at(target.global_transform.origin, Vector3.UP)
 	velocity = -global_transform.basis.z * move_speed
 

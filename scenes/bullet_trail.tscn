@@ -1,0 +1,17 @@
+[gd_scene load_steps=4 format=3 uid="uid://clux78w6oojo2"]
+
+[ext_resource type="Script" uid="uid://dsw66nqnw8oc6" path="res://bullet_trail.gd" id="1_yj8wl"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_yj8wl"]
+albedo_color = Color(3.17663e-06, 0.991319, 0.59913, 1)
+emission_enabled = true
+emission = Color(1.44392e-06, 0.982096, 0.572421, 1)
+emission_energy_multiplier = 8.5
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_yj8wl"]
+
+[node name="bullet_trail" type="MeshInstance3D"]
+transform = Transform3D(0.05, 0, 0, 0, -0.0296337, 0.0402721, 0, -0.0402721, -0.0296337, 0, 0, 0)
+material_override = SubResource("StandardMaterial3D_yj8wl")
+mesh = SubResource("CylinderMesh_yj8wl")
+script = ExtResource("1_yj8wl")

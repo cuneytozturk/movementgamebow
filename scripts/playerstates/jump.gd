@@ -24,4 +24,4 @@ func Physics_Update(_delta : float):
 		Transitioned.emit(self, "wallrun")
 
 func Exit():
-	Global.player.deceleration = 3
+	Global.player.deceleration = Global.player.DEFAULT_DECEL

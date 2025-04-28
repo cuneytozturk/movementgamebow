@@ -1,22 +1,29 @@
 extends BaseWeapon
 @onready var muzzle: Node3D = $muzzle
 var bullet_scene : PackedScene
+@onready var ray: RayCast3D = $RayCast3D
+var bullet_trail : PackedScene
 
 var firing = false
 var can_fire = true
+var altfiring = false
+var can_alt_fire = true
 
 @export var bullet_speed = 30
 @export var max_angle_degrees = 60.0
 @export var spread = 0.01
-
+@export var alt_fire_rate = 3
 
 
 func _ready():
 	bullet_scene = load("res://scenes/bullet.tscn")
+	bullet_trail = load("res://scenes/bullet_trail.tscn")
 
 func _physics_process(delta: float) -> void:
 	if firing && can_fire:
 		shoot()
+	if altfiring && can_alt_fire:
+		altshoot()
 
 func shoot():
 	spawnBullet()
@@ -24,11 +31,26 @@ func shoot():
 	await get_tree().create_timer(1.0 / fire_rate).timeout
 	can_fire = true
 
+func altshoot():
+	if Global.player.charge >= 10:
+		spawnHitscanBullet()
+		Global.player.charge -= 10
+		can_alt_fire = false
+		await get_tree().create_timer(1.0 / alt_fire_rate).timeout
+		can_alt_fire = true
+		
+
 func start_fire():
 	firing = true
 
 func stop_fire():
 	firing = false
+
+func start_alt_fire():
+	altfiring = true
+
+func stop_alt_fire():
+	altfiring = false
 
 func spawnBullet():
 	var bullet = bullet_scene.instantiate()
@@ -46,3 +68,11 @@ func spawnBullet():
 	
 	bullet.velocity = (-muzzle.global_transform.basis.z + random_spread).normalized() * bullet_speed
 	get_tree().current_scene.add_child(bullet)
+
+func spawnHitscanBullet():
+	if ray.is_colliding():
+		if ray.get_collider().is_in_group("enemy"):
+			var trail = bullet_trail.instantiate()
+			trail.init(muzzle.global_position, ray.get_collision_point())
+			get_tree().current_scene.add_child(trail)
+			ray.get_collider().hit(100.0)

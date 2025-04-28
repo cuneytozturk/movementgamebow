@@ -26,10 +26,7 @@ func Enter():
 	slide_direction = slide_direction.normalized()
 
 func Physics_Update(_delta : float):
-	var camera_dir = clamp(Global.player.velocity.x, -1.0, 1.0)
-	var target_roll = deg_to_rad(camera_tilt_angle * camera_dir)
-	var current_roll = Global.player.camera_tilt.rotation.z
-	Global.player.camera_tilt.rotation.z = lerp_angle(current_roll, target_roll, _delta * tilt_speed)
+	tilt_cam(_delta)
 	Global.player.ground_movement()
 
 	
@@ -47,4 +44,10 @@ func move():
 func Exit():
 	anims.play("crouch", -1, -ANIM_SPEED, true)
 	Global.player.allow_dir=true
-	Global.player.deceleration = 3
+	Global.player.deceleration = Global.player.DEFAULT_DECEL
+	
+func tilt_cam(delta):
+	var camera_dir = clamp(Global.player.velocity.x, -1.0, 1.0)
+	var target_roll = deg_to_rad(camera_tilt_angle * camera_dir)
+	var current_roll = Global.player.camera_tilt.rotation.z
+	Global.player.camera_tilt.rotation.z = lerp_angle(current_roll, target_roll, delta * tilt_speed)

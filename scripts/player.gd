@@ -14,7 +14,8 @@ extends CharacterBody3D
 
 # speed
 @export var acceleration = 15
-@export var deceleration = 3.0
+var deceleration = 7
+@export var DEFAULT_DECEL = 7
 var current_speed = 0.0
 var desired_speed = 0.0
 @export var speed_limit := 16
@@ -31,7 +32,7 @@ var allow_dir := true
 @onready var raycast_leftbutt: RayCast3D = $camera_mount/raycast_leftbutt
 @onready var raycast_rightbutt: RayCast3D = $camera_mount/raycast_rightbutt
 var wallrun_ground_timer := 0.0
-var wallrun_cooldown_timer = 1
+@export var wallrun_cooldown_timer = 0.5
 var wall_direction
 
 #headbob vars
@@ -46,6 +47,7 @@ var FOV_CHANGE = 1.5
 # hero vars
 var current_weapon: BaseWeapon
 var health = 100
+var charge = 1
 
 
 func _ready() -> void:
@@ -60,10 +62,14 @@ func _unhandled_input(event: InputEvent) -> void:
 		camera.rotate_x(-event.relative.y * SENS)
 		camera.rotation.x = clamp(camera.rotation.x, deg_to_rad(-90), deg_to_rad(90))
 	if current_weapon:
-		if event.is_action_pressed("fire"):
+		if event.is_action_pressed("mouseleft"):
 				current_weapon.start_fire()
-		elif event.is_action_released("fire"):
+		elif event.is_action_released("mouseleft"):
 			current_weapon.stop_fire()
+		elif event.is_action_pressed("mouseright"):
+				current_weapon.start_alt_fire()
+		elif event.is_action_released("mouseright"):
+			current_weapon.stop_alt_fire()
 
 func equip_weapon(weapon_scene: PackedScene):
 	if current_weapon:
@@ -75,7 +81,6 @@ func _physics_process(delta: float) -> void:
 	speed_fov_change(delta)
 	wallrun_cooldowns(delta)
 	acceldeccel(delta)
-	
 	# apply gravity
 	if not is_on_floor():
 		velocity += get_gravity() * delta
@@ -160,3 +165,6 @@ func _on_area_3d_body_entered(body: Node3D) -> void:
 			print("Dead")
 			position = Vector3(0, 3, 0)
 			health = 100
+
+func earncharge():
+	charge += 1

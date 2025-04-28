@@ -16,8 +16,8 @@ func frame_skip(delta):
 	if frame_counter % THINK_INTERVAL == 0:
 		physics_logic(delta)
 	
-func physics_logic(delta):
+func physics_logic(_delta):
 	pass
 
-func hit(dmg):
+func hit(_dmg):
 	pass

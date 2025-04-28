@@ -10,10 +10,7 @@ func Enter():
 	Global.player.desired_speed = WALLRUNSPEED
 
 func Physics_Update(_delta : float):
-	var tilt_direction = sign(Global.player.wall_direction.x)  # -1 = left wall, 1 = right wall
-	var target_roll = deg_to_rad(camera_tilt_angle * tilt_direction)
-	var current_roll = Global.player.camera_tilt.rotation.z
-	Global.player.camera_tilt.rotation.z = lerp_angle(current_roll, target_roll, _delta * tilt_speed)
+	tilt_cam(_delta)
 	Global.player.ground_movement()
 	
 	# suspend gravity during wallrun
@@ -38,3 +35,9 @@ func Physics_Update(_delta : float):
 
 func Exit():
 	Global.player.wallrun_cooldown_timer = wallrun_cooldown
+
+func tilt_cam(delta):
+	var tilt_direction = sign(Global.player.wall_direction.x)  # -1 = left wall, 1 = right wall
+	var target_roll = deg_to_rad(camera_tilt_angle * tilt_direction)
+	var current_roll = Global.player.camera_tilt.rotation.z
+	Global.player.camera_tilt.rotation.z = lerp_angle(current_roll, target_roll, delta * tilt_speed)
