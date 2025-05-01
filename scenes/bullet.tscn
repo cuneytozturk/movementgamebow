@@ -1,22 +1,20 @@
 [gd_scene load_steps=3 format=3 uid="uid://cingjloqytai4"]
 
 [ext_resource type="Script" uid="uid://d0r873co4y23g" path="res://scripts/weapon/bullet.gd" id="1_mkf8s"]
-
-[sub_resource type="BoxMesh" id="BoxMesh_e81f4"]
+[ext_resource type="PackedScene" uid="uid://dpbtkhwdkj15r" path="res://assets/kunai.tscn" id="2_y25gk"]
 
 [node name="Bullet" type="Node3D"]
 script = ExtResource("1_mkf8s")
 
-[node name="Mesh" type="MeshInstance3D" parent="."]
-transform = Transform3D(0.14, 0, 0, 0, 0.06, 0, 0, 0, 0.75, 0, 0, 0)
-mesh = SubResource("BoxMesh_e81f4")
-
 [node name="RayCast3D" type="RayCast3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0)
-collision_mask = 8
+transform = Transform3D(-1, 8.74228e-08, 3.82137e-15, 0, -4.37114e-08, 1, 8.74228e-08, 1, 4.37114e-08, 0, 0, 0)
+collision_mask = 9
 
 [node name="Timer" type="Timer" parent="."]
 wait_time = 3.0
 autostart = true
+
+[node name="kunai" parent="." instance=ExtResource("2_y25gk")]
+transform = Transform3D(1.54771e-08, 0, -0.205, 0, 0.205, 0, 0.205, 0, 1.54771e-08, 0, 0, -0.503921)
 
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

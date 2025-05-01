@@ -1,0 +1,11 @@
+[gd_scene load_steps=3 format=3 uid="uid://c62t8oyqnturd"]
+
+[ext_resource type="PackedScene" uid="uid://wu66bnnabba2" path="res://assets/hand.glb" id="1_1vgdb"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_3ttjg"]
+albedo_color = Color(0, 0.109804, 0.196078, 1)
+
+[node name="hand" instance=ExtResource("1_1vgdb")]
+
+[node name="Cube" parent="." index="0"]
+surface_material_override/0 = SubResource("StandardMaterial3D_3ttjg")

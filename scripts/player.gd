@@ -47,7 +47,7 @@ var FOV_CHANGE = 1.5
 # hero vars
 var current_weapon: BaseWeapon
 var health = 100
-var charge = 1
+var charge = 300
 
 
 func _ready() -> void:
@@ -84,7 +84,7 @@ func _physics_process(delta: float) -> void:
 	# apply gravity
 	if not is_on_floor():
 		velocity += get_gravity() * delta
-	
+
 	# block player input but allow movement to continue
 	if allow_dir:
 		headbob(delta)

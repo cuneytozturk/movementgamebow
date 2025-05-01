@@ -4,9 +4,9 @@ extends Enemy
 
 
 func _ready():
-	move_speed = 10
+	move_speed = 12
 	THINK_INTERVAL = 30
-	health = 100
+	health = 60
 
 func hit(dmg):
 	health -= dmg

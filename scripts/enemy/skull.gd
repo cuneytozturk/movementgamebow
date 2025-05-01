@@ -8,9 +8,9 @@ extends Enemy
 var hover_offset := 0.0
 
 func _ready():
-	move_speed = 10
+	move_speed = 12
 	THINK_INTERVAL = 30
-	health = 100
+	health = 60
 
 func _physics_process(delta):
 	frame_skip(delta)

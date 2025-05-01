@@ -1,6 +1,6 @@
 extends Node3D
 
-const DAMAGE = 5
+var damage
 @onready var ray: RayCast3D = $RayCast3D
 var velocity = Vector3.ZERO
 
@@ -10,7 +10,7 @@ func _process(delta: float) -> void:
 	if ray.is_colliding():
 		var collider = ray.get_collider()
 		if collider && collider.is_in_group("enemy"):
-			collider.hit(DAMAGE)
+			collider.hit(damage)
 			Global.player.earncharge()
 		queue_free()
 
