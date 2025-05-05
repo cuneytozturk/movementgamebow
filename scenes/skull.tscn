@@ -29,5 +29,5 @@ transform = Transform3D(1.5, 0, 0, 0, 1.5, 0, 0, 0, 1.5, 0, 0, 0)
 mesh = SubResource("SphereMesh_6mw1b")
 
 [node name="MeshInstance3D2" type="MeshInstance3D" parent="."]
-transform = Transform3D(0.255, 0, 0, 0, -3.93403e-08, 0.31, 0, -0.9, -1.35505e-08, 0, 0, -0.595319)
+transform = Transform3D(0.255, 0, 0, 0, -3.93403e-08, 0.31, 0, -0.9, -1.35505e-08, 0, 0, 0.0800536)
 mesh = SubResource("CapsuleMesh_1bx6h")

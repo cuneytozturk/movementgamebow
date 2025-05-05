@@ -1,0 +1,19 @@
+[gd_scene load_steps=4 format=3 uid="uid://v4l27ra1tae1"]
+
+[ext_resource type="Script" uid="uid://ch0dlxuu8w4j6" path="res://scenes/arrow.gd" id="1_umosx"]
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_vt0lb"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_umosx"]
+emission_enabled = true
+emission = Color(1, 1, 1, 1)
+emission_energy_multiplier = 3.18
+
+[node name="arrow" type="Node3D"]
+script = ExtResource("1_umosx")
+
+[node name="mesh" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.03, 0, 0, 0, -8.37073e-08, -0.03, 0, 1.915, -1.31134e-09, 0, 0, 1.92084)
+mesh = SubResource("CylinderMesh_vt0lb")
+skeleton = NodePath("../..")
+surface_material_override/0 = SubResource("StandardMaterial3D_umosx")

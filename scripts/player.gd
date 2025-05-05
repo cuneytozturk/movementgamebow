@@ -46,14 +46,15 @@ var FOV_CHANGE = 1.5
 
 # hero vars
 var current_weapon: BaseWeapon
-var health = 100
-var charge = 300
+@export var health = 100
+var charge = 0
+@export var max_charge = 30
 
 
 func _ready() -> void:
 	Global.player = self
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
-	equip_weapon(load("res://scenes/hand.tscn"))
+	equip_weapon(load("res://scenes/bow.tscn"))
 	
 func _unhandled_input(event: InputEvent) -> void:
 	# handle mouse input for camera
@@ -109,7 +110,11 @@ func ground_movement():
 	air_direction = direction
 
 func air_movement(delta):
-	air_direction = air_direction.lerp(desired_dir.normalized(), air_control_strength * delta)
+	var desired = desired_dir.normalized()
+	if desired.length() > 0:
+		air_direction += desired * air_control_strength * delta
+		# Optional: Clamp to max air direction length
+		#air_direction = clamp(air_direction, 0.0, 1.0)
 	direction = air_direction.normalized()
 
 func headbob(delta): 
@@ -166,5 +171,6 @@ func _on_area_3d_body_entered(body: Node3D) -> void:
 			position = Vector3(0, 3, 0)
 			health = 100
 
-func earncharge():
-	charge += 1
+func earncharge(chargeearned):
+	if charge <= max_charge:
+		charge += chargeearned

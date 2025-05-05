@@ -8,9 +8,9 @@ var ghoul = preload("res://scenes/ghoul.tscn")
 
 # Define the waves
 var waves = [
-	{"skull": 5, "ghoul": 15}, # Wave 1
-	{"skull": 15, "ghoul": 5},   # Wave 2
-	{"skull": 20, "ghoul": 8},   # Wave 3
+	{"skull": 100, "ghoul": 100}, # Wave 1
+	{"skull": 30, "ghoul": 30},   # Wave 2
+	{"skull": 100, "ghoul": 100},   # Wave 3
 ]
 
 # Time between spawns and between waves

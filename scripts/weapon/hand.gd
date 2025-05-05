@@ -4,11 +4,11 @@ var bullet_scene : PackedScene
 @onready var ray: RayCast3D = $RayCast3D
 var bullet_trail : PackedScene
 @onready var ray_end: Node3D = $ray_end
+@onready var beam: Area3D = $beam
+@onready var beam_coll: CollisionShape3D = $beam/beam_coll
 
-var firing = false
-var can_fire = true
-var altfiring = false
-var can_alt_fire = true
+
+
 
 @export var bullet_speed = 30
 @export var bullet_damage = 30
@@ -19,8 +19,7 @@ var can_alt_fire = true
 
 func _ready():
 	bullet_scene = load("res://scenes/bullet.tscn")
-	bullet_trail = load("res://scenes/bullet_trail.tscn")
-
+	bullet_trail = load("res://scenes/laser_trail.tscn")
 func _physics_process(delta: float) -> void:
 	if firing && can_fire:
 		shoot()
@@ -34,9 +33,9 @@ func shoot():
 	can_fire = true
 
 func altshoot():
-	if Global.player.charge >= 10:
+	if Global.player.charge >= 100:
 		spawnHitscanBullet()
-		Global.player.charge -= 10
+		Global.player.charge -= 100
 		can_alt_fire = false
 		await get_tree().create_timer(1.0 / alt_fire_rate).timeout
 		can_alt_fire = true
@@ -70,18 +69,24 @@ func spawnBullet():
 	
 	bullet.velocity = (-muzzle.global_transform.basis.z + random_spread).normalized() * bullet_speed
 	bullet.damage= bullet_damage
+	bullet.chargeearned = 2
 	get_tree().current_scene.add_child(bullet)
 
 func spawnHitscanBullet():
+	beam.monitoring = true
 	if ray.is_colliding():
 		var collider = ray.get_collider()
-		if collider && ray.get_collider().is_in_group("enemy"):
-			#var trail = bullet_trail.instantiate()
-			#trail.init(muzzle.global_position, ray.get_collision_point())
-			#get_tree().current_scene.add_child(trail)
-			ray.get_collider().hit(100.0)
+		var trail = bullet_trail.instantiate()
+		get_tree().current_scene.add_child(trail)
+		trail.setup(muzzle.global_position, ray.get_collision_point())
 	else:
-		pass
-		#var trail = bullet_trail.instantiate()
-		#trail.init(muzzle.global_position, ray_end.global_position)
-		#get_tree().current_scene.add_child(trail)
+		var trail = bullet_trail.instantiate()
+		get_tree().current_scene.add_child(trail)
+		trail.setup(muzzle.global_position, ray_end.global_position)
+	await get_tree().create_timer(0.1).timeout
+	beam.monitoring = false
+
+
+func _on_beam_body_entered(body: Node3D) -> void:
+	if body.is_in_group("enemy"):
+		body.hit(100.0)
