@@ -17,3 +17,14 @@ transform = Transform3D(0.03, 0, 0, 0, -8.37073e-08, -0.03, 0, 1.915, -1.31134e-
 mesh = SubResource("CylinderMesh_vt0lb")
 skeleton = NodePath("../..")
 surface_material_override/0 = SubResource("StandardMaterial3D_umosx")
+
+[node name="ray" type="RayCast3D" parent="."]
+transform = Transform3D(7.505, 0, 0, 0, -1.79654e-07, -8.96, 0, 4.11, -3.91654e-07, 0, 0, 3.41124)
+collision_mask = 9
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 30.0
+one_shot = true
+autostart = true
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

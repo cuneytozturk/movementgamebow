@@ -1,8 +1,9 @@
-[gd_scene load_steps=19 format=3 uid="uid://cnwgdkcffpr6h"]
+[gd_scene load_steps=20 format=3 uid="uid://cnwgdkcffpr6h"]
 
 [ext_resource type="Script" uid="uid://c1s643k11wqpa" path="res://scripts/player.gd" id="1_3vyb7"]
 [ext_resource type="Script" uid="uid://cp78m376rl80h" path="res://scripts/state.gd" id="2_g2els"]
 [ext_resource type="Script" uid="uid://dceojyxsonpip" path="res://scripts/statemachine.gd" id="2_qhqgy"]
+[ext_resource type="PackedScene" uid="uid://cn6uuk5cwafls" path="res://scenes/shakeable_camera.tscn" id="2_y4r1p"]
 [ext_resource type="Script" uid="uid://b70orldahsmsg" path="res://scripts/playerstates/idle.gd" id="3_dqkch"]
 [ext_resource type="Script" uid="uid://dw7rqjmuvms7w" path="res://scripts/playerstates/run.gd" id="5_tuyoq"]
 [ext_resource type="Script" uid="uid://dxhllc1xdsfum" path="res://scripts/playerstates/jump.gd" id="6_fjrip"]
@@ -169,10 +170,17 @@ transform = Transform3D(-4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0, 1, -0.349
 
 [node name="camera_tilt" type="Node3D" parent="camera_mount"]
 
-[node name="camera" type="Camera3D" parent="camera_mount/camera_tilt"]
+[node name="shakeable_camera" parent="camera_mount/camera_tilt" instance=ExtResource("2_y4r1p")]
 
-[node name="weapon_mount" type="Node3D" parent="camera_mount/camera_tilt/camera"]
+[node name="weapon_mount" type="Node3D" parent="camera_mount/camera_tilt/shakeable_camera/camera" index="0"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.264968, -0.184417, -0.309966)
+
+[node name="middlepoint" type="RayCast3D" parent="camera_mount/camera_tilt/shakeable_camera/camera" index="1"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-05, -1, 0, 1000, -4.37114e-08, 0, 0, 0)
+collision_mask = 9
+
+[node name="misspoint" type="Node3D" parent="camera_mount/camera_tilt/shakeable_camera/camera" index="2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1000)
 
 [node name="statemachine" type="Node" parent="." node_paths=PackedStringArray("initial_state")]
 script = ExtResource("2_qhqgy")
@@ -261,10 +269,6 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -4.0
-offset_top = -4.5
-offset_right = 4.0
-offset_bottom = 4.5
 grow_horizontal = 2
 grow_vertical = 2
 texture = SubResource("GradientTexture1D_y4r1p")
@@ -279,3 +283,5 @@ offset_bottom = 188.0
 step = 1.0
 
 [connection signal="body_entered" from="Area3D" to="." method="_on_area_3d_body_entered"]
+
+[editable path="camera_mount/camera_tilt/shakeable_camera"]

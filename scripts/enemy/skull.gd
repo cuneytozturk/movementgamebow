@@ -8,7 +8,7 @@ extends Enemy
 var hover_offset := 0.0
 
 func _ready():
-	move_speed = 12
+	move_speed = 9
 	THINK_INTERVAL = 30
 	health = 60
 

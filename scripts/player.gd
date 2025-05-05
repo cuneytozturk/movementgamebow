@@ -1,11 +1,14 @@
 extends CharacterBody3D
 
 @onready var camera_mount: Node3D = $camera_mount
-@onready var camera: Camera3D = $camera_mount/camera_tilt/camera
+@onready var camera: Camera3D = $camera_mount/camera_tilt/shakeable_camera/camera
 @onready var camera_tilt: Node3D = $camera_mount/camera_tilt
 @onready var anims: AnimationPlayer = $AnimationPlayer
-@onready var weapon_mount: Node3D = $camera_mount/camera_tilt/camera/weapon_mount
+@onready var weapon_mount: Node3D = $camera_mount/camera_tilt/shakeable_camera/camera/weapon_mount
 @onready var collision: CollisionShape3D = $collision
+@onready var middlepoint: RayCast3D = $camera_mount/camera_tilt/shakeable_camera/camera/middlepoint
+@onready var misspoint: Node3D = $camera_mount/camera_tilt/shakeable_camera/camera/misspoint
+@onready var shakeable_camera: Area3D = $camera_mount/camera_tilt/shakeable_camera
 
 
 # camera sensitivity
@@ -60,8 +63,8 @@ func _unhandled_input(event: InputEvent) -> void:
 	# handle mouse input for camera
 	if event is InputEventMouseMotion:
 		camera_mount.rotate_y(-event.relative.x * SENS)
-		camera.rotate_x(-event.relative.y * SENS)
-		camera.rotation.x = clamp(camera.rotation.x, deg_to_rad(-90), deg_to_rad(90))
+		camera_tilt.rotate_x(-event.relative.y * SENS)
+		camera_tilt.rotation.x = clamp(camera_tilt.rotation.x, deg_to_rad(-90), deg_to_rad(90))
 	if current_weapon:
 		if event.is_action_pressed("mouseleft"):
 				current_weapon.start_fire()

@@ -8,9 +8,9 @@ var ghoul = preload("res://scenes/ghoul.tscn")
 
 # Define the waves
 var waves = [
-	{"skull": 100, "ghoul": 100}, # Wave 1
-	{"skull": 30, "ghoul": 30},   # Wave 2
-	{"skull": 100, "ghoul": 100},   # Wave 3
+	{"skull": 5, "ghoul": 5},
+	{"skull": 10, "ghoul": 10},
+	{"skull": 15, "ghoul": 15},    # Wave 3
 ]
 
 # Time between spawns and between waves
@@ -21,7 +21,7 @@ var current_wave = 0   # The index of the current wave
 
 # Ready function to initialize everything
 func _ready():
-	pass#start_wave()
+	start_wave()
 
 # Function to start the current wave
 func start_wave():

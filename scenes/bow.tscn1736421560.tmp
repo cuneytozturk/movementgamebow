@@ -219,7 +219,6 @@ _data = {
 
 [node name="bow" type="Node3D"]
 script = ExtResource("1_vt0lb")
-bow_shake = 0.6
 
 [node name="Armature" type="Node3D" parent="."]
 transform = Transform3D(-1, 7.64274e-15, 8.74228e-08, 0, -1, 8.74228e-08, 8.74228e-08, 8.74228e-08, 1, 0.00981123, 0.00401087, -0.906634)
