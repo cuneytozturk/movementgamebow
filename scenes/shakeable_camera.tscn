@@ -16,4 +16,6 @@ noise = SubResource("FastNoiseLite_y4r1p")
 transform = Transform3D(3.94, 0, 0, 0, 3.94, 0, 0, 0, 3.94, 0, 0, 0)
 shape = SubResource("SphereShape3D_y4r1p")
 
-[node name="camera" type="Camera3D" parent="."]
+[node name="xrot" type="Node3D" parent="."]
+
+[node name="camera" type="Camera3D" parent="xrot"]

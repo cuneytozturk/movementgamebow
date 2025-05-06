@@ -183,7 +183,7 @@ transform = Transform3D(-4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0, 1, -0.349
 [node name="shakeable_camera" parent="camera_mount/camera_tilt" instance=ExtResource("2_y4r1p")]
 
 [node name="middlepoint" type="RayCast3D" parent="camera_mount/camera_tilt/shakeable_camera/xrot/camera" index="0"]
-transform = Transform3D(1.91069e-15, 4.37114e-08, 1, 1, -4.37114e-08, 0, 4.37114e-08, 1, -4.37114e-08, 0, 0, 0)
+transform = Transform3D(-4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, 0, 0, 0)
 target_position = Vector3(0, -1000, 0)
 collision_mask = 9
 
@@ -191,7 +191,7 @@ collision_mask = 9
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1000)
 
 [node name="weapon_mount" type="Node3D" parent="camera_mount/camera_tilt/shakeable_camera/xrot/camera" index="2"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.478185, -0.233037, -0.753083)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.7, 0)
 
 [node name="statemachine" type="Node" parent="." node_paths=PackedStringArray("initial_state")]
 script = ExtResource("2_qhqgy")
