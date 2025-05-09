@@ -6,7 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://5plh13oxukx3" path="res://assets/kenney_prototype_textures/red/texture_01.png" id="4_4mrxx"]
 [ext_resource type="Texture2D" uid="uid://cir6fws61i01q" path="res://assets/kenney_prototype_textures/purple/texture_01.png" id="5_7r4gi"]
 [ext_resource type="PackedScene" uid="uid://cnwgdkcffpr6h" path="res://scenes/player.tscn" id="6_qfnet"]
-[ext_resource type="Script" uid="uid://csmvwicpwoevs" path="res://scenes/spawner.gd" id="7_i7141"]
+[ext_resource type="Script" uid="uid://csmvwicpwoevs" path="res://scripts/spawner.gd" id="7_i7141"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_qfnet"]
 sky_horizon_color = Color(0.662243, 0.671743, 0.686743, 1)

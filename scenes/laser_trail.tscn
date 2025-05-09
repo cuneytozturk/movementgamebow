@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=3 uid="uid://cspbronrcpllj"]
 
-[ext_resource type="Script" uid="uid://8d66oql7fkus" path="res://scenes/laser_trail.gd" id="1_6ahlv"]
+[ext_resource type="Script" uid="uid://8d66oql7fkus" path="res://scripts/laser_trail.gd" id="1_6ahlv"]
 
 [sub_resource type="CylinderMesh" id="CylinderMesh_djv1g"]
 

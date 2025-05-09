@@ -11,6 +11,7 @@ func _ready():
 func hit(dmg):
 	health -= dmg
 	if health <= 0:
+		die(score_earned)
 		queue_free()
 
 func physics_logic(delta):

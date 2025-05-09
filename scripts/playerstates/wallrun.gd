@@ -1,4 +1,5 @@
 extends State
+var state_name = "wallrun"
 
 @export var wallrun_cooldown = 1
 @export var camera_tilt_angle := 10.0

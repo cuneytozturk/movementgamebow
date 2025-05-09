@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=3 uid="uid://v4l27ra1tae1"]
 
-[ext_resource type="Script" uid="uid://ch0dlxuu8w4j6" path="res://scenes/arrow.gd" id="1_umosx"]
+[ext_resource type="Script" uid="uid://ch0dlxuu8w4j6" path="res://scripts/arrow.gd" id="1_umosx"]
 
 [sub_resource type="CylinderMesh" id="CylinderMesh_vt0lb"]
 

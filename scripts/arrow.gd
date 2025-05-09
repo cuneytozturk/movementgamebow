@@ -4,6 +4,7 @@ var rot
 var nocked = true
 var velocity
 @onready var ray: RayCast3D = $ray
+var p = Global.player
 
 func _process(delta: float) -> void:
 	if nocked:

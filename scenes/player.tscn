@@ -1,15 +1,16 @@
-[gd_scene load_steps=20 format=3 uid="uid://cnwgdkcffpr6h"]
+[gd_scene load_steps=19 format=3 uid="uid://cnwgdkcffpr6h"]
 
 [ext_resource type="Script" uid="uid://c1s643k11wqpa" path="res://scripts/player.gd" id="1_3vyb7"]
+[ext_resource type="Script" uid="uid://crntswpj06c6t" path="res://scripts/camera_mount.gd" id="2_d2wvv"]
 [ext_resource type="Script" uid="uid://cp78m376rl80h" path="res://scripts/state.gd" id="2_g2els"]
 [ext_resource type="Script" uid="uid://dceojyxsonpip" path="res://scripts/statemachine.gd" id="2_qhqgy"]
 [ext_resource type="PackedScene" uid="uid://cn6uuk5cwafls" path="res://scenes/shakeable_camera.tscn" id="2_y4r1p"]
 [ext_resource type="Script" uid="uid://b70orldahsmsg" path="res://scripts/playerstates/idle.gd" id="3_dqkch"]
 [ext_resource type="Script" uid="uid://dw7rqjmuvms7w" path="res://scripts/playerstates/run.gd" id="5_tuyoq"]
 [ext_resource type="Script" uid="uid://dxhllc1xdsfum" path="res://scripts/playerstates/jump.gd" id="6_fjrip"]
-[ext_resource type="Script" uid="uid://httd88m282be" path="res://scripts/wallrun.gd" id="7_smehm"]
+[ext_resource type="Script" uid="uid://httd88m282be" path="res://scripts/playerstates/wallrun.gd" id="7_smehm"]
 [ext_resource type="Script" uid="uid://5n1oiv0dfrlo" path="res://scripts/playerstates/slide.gd" id="8_y4r1p"]
-[ext_resource type="Script" uid="uid://bj1xlp2d873db" path="res://scenes/canvas_layer.gd" id="9_ur7pv"]
+[ext_resource type="Script" uid="uid://c7sth3riojla4" path="res://scripts/ui.gd" id="10_y4r1p"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_u8vuu"]
 
@@ -129,29 +130,12 @@ _data = {
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_ur7pv"]
 
-[sub_resource type="Gradient" id="Gradient_ur7pv"]
-offsets = PackedFloat32Array(0, 0.684028)
-colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 1)
-
-[sub_resource type="GradientTexture1D" id="GradientTexture1D_y4r1p"]
-gradient = SubResource("Gradient_ur7pv")
-
 [node name="player" type="CharacterBody3D"]
 collision_layer = 2
 collision_mask = 9
 script = ExtResource("1_3vyb7")
 BASE_FOV = 90.0
 max_charge = 100
-
-[node name="camera_mount_camera_tilt_shakeable_camera_camera#weapon_mount" type="Node3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.264968, -0.184417, -0.309966)
-
-[node name="camera_mount_camera_tilt_shakeable_camera_camera#middlepoint" type="RayCast3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, -4.37114e-05, -1, 0, 1000, -4.37114e-08, 0, 0, 0)
-collision_mask = 9
-
-[node name="camera_mount_camera_tilt_shakeable_camera_camera#misspoint" type="Node3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1000)
 
 [node name="meshes" type="Node3D" parent="."]
 
@@ -165,6 +149,7 @@ shape = SubResource("CapsuleShape3D_3vyb7")
 
 [node name="camera_mount" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.7, 0)
+script = ExtResource("2_d2wvv")
 
 [node name="raycast_right" type="RayCast3D" parent="camera_mount"]
 transform = Transform3D(-4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, 0.274037, -1, 0)
@@ -238,60 +223,68 @@ collision_mask = 8
 transform = Transform3D(1.01, 0, 0, 0, 1.01, 0, 0, 0, 1.01, 0, 0.855218, 0)
 shape = SubResource("CapsuleShape3D_3vyb7")
 
-[node name="CanvasLayer" type="CanvasLayer" parent="."]
-script = ExtResource("9_ur7pv")
-
-[node name="Control" type="Control" parent="CanvasLayer"]
+[node name="UI" type="Control" parent="."]
 layout_mode = 3
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -203.0
-offset_top = -30.0
-offset_right = 191.0
-offset_bottom = 44.0
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-size_flags_horizontal = 4
-size_flags_vertical = 4
+scale = Vector2(0.995294, 1)
 mouse_filter = 2
+script = ExtResource("10_y4r1p")
 
-[node name="Label" type="Label" parent="CanvasLayer/Control"]
+[node name="PanelContainer" type="PanelContainer" parent="UI"]
 layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
+anchors_preset = -1
+anchor_left = 1.0
 anchor_top = 0.5
-anchor_right = 0.5
+anchor_right = 1.0
 anchor_bottom = 0.5
-offset_left = 88.0
-offset_top = 36.0
-offset_right = 352.0
-offset_bottom = 119.0
-grow_horizontal = 2
+offset_left = -276.0
+offset_top = -250.0
+offset_right = -50.0
+offset_bottom = 251.0
+grow_horizontal = 0
 grow_vertical = 2
-theme_override_font_sizes/font_size = 60
 
-[node name="TextureRect" type="TextureRect" parent="CanvasLayer/Control"]
+[node name="VBoxContainer" type="VBoxContainer" parent="UI/PanelContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="UI/PanelContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 40
+text = "Style meter"
+horizontal_alignment = 1
+
+[node name="MarginContainer" type="MarginContainer" parent="UI/PanelContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 0
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="UI/PanelContainer/VBoxContainer/MarginContainer"]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="UI/PanelContainer/VBoxContainer/MarginContainer/HBoxContainer"]
+layout_mode = 2
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="UI/PanelContainer/VBoxContainer/MarginContainer/HBoxContainer"]
+layout_mode = 2
+
+[node name="score" type="Label" parent="UI"]
 layout_mode = 1
-anchors_preset = 8
+anchors_preset = -1
 anchor_left = 0.5
-anchor_top = 0.5
 anchor_right = 0.5
-anchor_bottom = 0.5
+offset_left = -21.0
+offset_top = 50.0
+offset_right = 21.0
+offset_bottom = 23.0
 grow_horizontal = 2
-grow_vertical = 2
-texture = SubResource("GradientTexture1D_y4r1p")
-expand_mode = 1
-
-[node name="ProgressBar" type="ProgressBar" parent="CanvasLayer/Control"]
-layout_mode = 0
-offset_left = 268.0
-offset_top = 161.0
-offset_right = 579.0
-offset_bottom = 188.0
-step = 1.0
+theme_override_font_sizes/font_size = 30
+text = "score"
 
 [connection signal="body_entered" from="Area3D" to="." method="_on_area_3d_body_entered"]
 

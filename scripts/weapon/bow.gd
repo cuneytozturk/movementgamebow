@@ -1,8 +1,8 @@
 extends BaseWeapon
+var p = Global.player
 @onready var anim: AnimationPlayer = $AnimationPlayer
 @onready var marker_3d: MeshInstance3D = $ball
 @onready var string: Node3D = $string
-
 var arrow_scene: PackedScene
 var arrow
 
@@ -10,7 +10,7 @@ var arrow
 @export var bullet_speed = 69
 
 func _process(delta: float) -> void:
-	var ray = Global.player.middlepoint  # Your RayCast3D node
+	var ray = p.camera_mount.middlepoint  # Your RayCast3D node
 	if marker_3d && ray.is_colliding():
 		marker_3d.global_position = ray.get_collision_point()
 		marker_3d.visible = true
@@ -31,15 +31,15 @@ func start_fire():
 func stop_fire():
 	anim.play("bow/release")
 	shoot_arrow()
-	Global.player.shakeable_camera.add_trauma(bow_shake)
+	p.camera_mount.shakeable_camera.add_trauma(bow_shake)
 
 	
 func shoot_arrow():
 	if arrow:
 		arrow.nocked = false
-		var ray = Global.player.middlepoint
+		var ray = p.camera_mount.middlepoint
 		if ray.is_colliding():
 			arrow.look_at(ray.get_collision_point(), Vector3.UP)
 		else:
-			arrow.look_at(Global.player.misspoint.global_position, Vector3.UP)
+			arrow.look_at(p.camera_mount.misspoint.global_position, Vector3.UP)
 		arrow.velocity = -arrow.global_transform.basis.z * bullet_speed

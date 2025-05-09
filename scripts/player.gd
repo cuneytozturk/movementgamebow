@@ -1,14 +1,11 @@
 extends CharacterBody3D
 
 @onready var camera_mount: Node3D = $camera_mount
-@onready var camera: Camera3D = $camera_mount/camera_tilt/shakeable_camera/camera
 @onready var camera_tilt: Node3D = $camera_mount/camera_tilt
 @onready var anims: AnimationPlayer = $AnimationPlayer
-@onready var weapon_mount: Node3D = $camera_mount/camera_tilt/shakeable_camera/camera/weapon_mount
 @onready var collision: CollisionShape3D = $collision
-@onready var middlepoint: RayCast3D = $camera_mount/camera_tilt/shakeable_camera/camera/middlepoint
-@onready var misspoint: Node3D = $camera_mount/camera_tilt/shakeable_camera/camera/misspoint
-@onready var shakeable_camera: Area3D = $camera_mount/camera_tilt/shakeable_camera
+@onready var ui: Control = $UI
+@onready var statemachine: Node = $statemachine
 
 
 # camera sensitivity
@@ -52,6 +49,7 @@ var current_weapon: BaseWeapon
 @export var health = 100
 var charge = 0
 @export var max_charge = 30
+var run_score := 0
 
 
 func _ready() -> void:
@@ -63,8 +61,9 @@ func _unhandled_input(event: InputEvent) -> void:
 	# handle mouse input for camera
 	if event is InputEventMouseMotion:
 		camera_mount.rotate_y(-event.relative.x * SENS)
-		camera_tilt.rotate_x(-event.relative.y * SENS)
-		camera_tilt.rotation.x = clamp(camera_tilt.rotation.x, deg_to_rad(-90), deg_to_rad(90))
+		camera_mount.xrot.rotate_x(-event.relative.y * SENS)
+		camera_mount.xrot.rotation.x = clamp(camera_mount.xrot.rotation.x, deg_to_rad(-90), deg_to_rad(90))
+
 	if current_weapon:
 		if event.is_action_pressed("mouseleft"):
 				current_weapon.start_fire()
@@ -79,7 +78,7 @@ func equip_weapon(weapon_scene: PackedScene):
 	if current_weapon:
 		current_weapon.queue_free()
 	current_weapon = weapon_scene.instantiate()
-	weapon_mount.add_child(current_weapon)
+	camera_mount.weapon_mount.add_child(current_weapon)
 
 func _physics_process(delta: float) -> void:
 	speed_fov_change(delta)
@@ -126,12 +125,12 @@ func headbob(delta):
 	t_bob += delta * velocity.length() * float(is_on_floor())
 	pos.y = sin(time * BOB_FREQ) * BOB_AMP
 	pos.x = cos(time * BOB_FREQ / 2) * BOB_AMP
-	camera.transform.origin = pos
+	camera_mount.camera.transform.origin = pos
 	
 func speed_fov_change(delta):
 	var velocity_clamped = clamp(velocity.length(), 0.5, 10 * 2)
 	var target_fov = BASE_FOV + FOV_CHANGE * velocity_clamped
-	camera.fov = lerp(camera.fov, target_fov, delta * 8)
+	camera_mount.camera.fov = lerp(camera_mount.camera.fov, target_fov, delta * 8)
 
 func wallrun_cooldowns(delta):
 	if wallrun_cooldown_timer > 0:
@@ -165,6 +164,7 @@ func reset_camera_rot(delta):
 	camera_tilt.rotation.z  = lerp_angle(camera_tilt.rotation.z, 0.0, delta * tilt_speed)
 
 
+
 func _on_area_3d_body_entered(body: Node3D) -> void:
 	if body.is_in_group("enemy"):
 		print("ow")
@@ -177,3 +177,18 @@ func _on_area_3d_body_entered(body: Node3D) -> void:
 func earncharge(chargeearned):
 	if charge <= max_charge:
 		charge += chargeearned
+func earnkill(score):
+	var state = statemachine.current_state.state_name
+	if state == "slide":
+		ui.add_entry("slidekill", score*1.2)
+		run_score += score * 1.2
+	elif wallrun_cooldown_timer >= 0:
+		ui.add_entry("wallshot", score*1.5)
+		run_score += score * 1.5
+	elif state == "jump":
+		ui.add_entry("jumpshot", score*1.1)
+		run_score += score * 1.1
+	else:
+		ui.add_entry("kill", score)
+		run_score += score
+	ui.run_score.set_text(str(run_score))

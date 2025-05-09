@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://cu6wpxv7uycdg"]
+
+[sub_resource type="Theme" id="Theme_y4r1p"]
+default_font_size = 30
+
+[node name="Label" type="Label"]
+theme = SubResource("Theme_y4r1p")
+text = "SLIDESHOT"

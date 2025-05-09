@@ -15,6 +15,7 @@ albedo_color = Color(0.693694, 0.00166609, 0.85736, 1)
 collision_layer = 8
 collision_mask = 9
 script = ExtResource("1_pn4bt")
+score_earned = 50
 
 [node name="worldcoll" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)

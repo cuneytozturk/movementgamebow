@@ -6,6 +6,7 @@ class_name Enemy
 @export var target: CharacterBody3D
 @export var THINK_INTERVAL: int
 var frame_counter = 0
+@export var score_earned: int
 
 func _physics_process(delta):
 	frame_skip(delta)
@@ -21,3 +22,6 @@ func physics_logic(_delta):
 
 func hit(_dmg):
 	pass
+
+func die(score_earned):
+	Global.player.earnkill(score_earned)

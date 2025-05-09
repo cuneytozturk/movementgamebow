@@ -1,5 +1,5 @@
 extends State
-
+var state_name = "run"
 var RUNSPEED = 9
 
 func Enter():

@@ -21,7 +21,7 @@ var current_wave = 0   # The index of the current wave
 
 # Ready function to initialize everything
 func _ready():
-	pass#start_wave()
+	start_wave()
 
 # Function to start the current wave
 func start_wave():

@@ -4,6 +4,7 @@ extends State
 @export var JUMP_AIR_SPEED = 8
 @export var wallrun_delay = 0.2
 @export var JUMP_DECEL = 1
+var state_name = "jump"
 
 func Enter():
 	Global.player.desired_speed = JUMP_AIR_SPEED

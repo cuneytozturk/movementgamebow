@@ -1,5 +1,5 @@
 extends State
-
+var state_name = "idle"
 func Enter():
 	pass
 

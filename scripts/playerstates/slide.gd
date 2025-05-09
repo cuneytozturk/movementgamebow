@@ -1,4 +1,5 @@
 extends State
+var state_name = "slide"
 
 @onready var anims: AnimationPlayer = $"../../AnimationPlayer"
 @onready var ceiling_check: ShapeCast3D = $"../../ceiling_check"
@@ -17,7 +18,7 @@ func Enter():
 	Global.player.allow_dir=false
 	anims.play("crouch", -1, ANIM_SPEED)
 	Global.player.desired_speed = SLIDE_SPEED
-	Global.player.current_speed = Global.player.current_speed * 1.6
+	Global.player.current_speed = Global.player.current_speed * 1.4
 	Global.player.deceleration = SLIDE_DECEL
 	
 	# Lock in slide direction based on current movement
