@@ -1,10 +1,10 @@
 extends State
 var state_name = "wallrun"
 
-@export var wallrun_cooldown = 1
+@export var wallrun_cooldown = 0.5
 @export var camera_tilt_angle := 10.0
 @export var tilt_speed := 5.0
-@export var WALLRUNSPEED = 14
+@export var WALLRUNSPEED: float
 @onready var camera_tilt: Node3D = $"../../camera_mount/camera_tilt"
 
 func Enter():

@@ -15,9 +15,18 @@ func _process(delta: float) -> void:
 		position += velocity * delta
 		if ray.is_colliding():
 			var collider = ray.get_collider()
-			if collider && collider.is_in_group("enemy"):
-				collider.hit(100.0)
-			queue_free()
+			if collider == null:
+				return
+			# Check for damageable interface via group
+			if collider.is_in_group("enemy") or collider.is_in_group("spawner"):
+				var target = collider
+				# Climb to parent if needed
+				while target and not target.has_method("hit"):
+					target = target.get_parent()
+				if target and target.has_method("hit"):
+					target.hit(100.0)
+			else: 
+				queue_free()
 
 func _on_timer_timeout() -> void:
 	if !nocked: 

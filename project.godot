@@ -10,7 +10,7 @@ config_version=5
 
 [application]
 
-config/name="anotherproj"
+config/name="movementgame"
 run/main_scene="uid://dcw6xwtw73p1p"
 config/features=PackedStringArray("4.4", "Forward Plus")
 config/icon="res://icon.svg"
@@ -21,12 +21,19 @@ Global="*res://global.gd"
 
 [display]
 
+window/size/viewport_width=1920
+window/size/viewport_height=1080
+window/size/mode=3
 window/vsync/vsync_mode=0
 
 [editor]
 
 version_control/plugin_name="GitPlugin"
 version_control/autoload_on_startup=true
+
+[editor_plugins]
+
+enabled=PackedStringArray()
 
 [input]
 

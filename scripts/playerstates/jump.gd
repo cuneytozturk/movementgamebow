@@ -6,6 +6,8 @@ extends State
 @export var JUMP_DECEL = 1
 var state_name = "jump"
 
+var climb_ray: RayCast3D
+
 func Enter():
 	Global.player.desired_speed = JUMP_AIR_SPEED
 	Global.player.velocity.y += JUMP_VELOCITY
@@ -23,6 +25,10 @@ func Physics_Update(_delta : float):
 	and Global.player.wallrun_ground_timer >= wallrun_delay \
 	and Global.player.wallrun_cooldown_timer <= 0.0:
 		Transitioned.emit(self, "wallrun")
+		
+	climb_ray = Global.player.raycast_front
+	if climb_ray.is_colliding() && Input.is_action_pressed("jump"):
+		Transitioned.emit(self, "climb")
 
 func Exit():
 	Global.player.deceleration = Global.player.DEFAULT_DECEL

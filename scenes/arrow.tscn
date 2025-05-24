@@ -19,7 +19,7 @@ skeleton = NodePath("../..")
 surface_material_override/0 = SubResource("StandardMaterial3D_umosx")
 
 [node name="ray" type="RayCast3D" parent="."]
-transform = Transform3D(7.505, 0, 0, 0, -1.79654e-07, -8.96, 0, 4.11, -3.91654e-07, 0, 0, 3.41124)
+transform = Transform3D(12.8, 0, 0, 0, -2.96931e-07, -14.808, 0, 6.793, -6.47278e-07, 0, 0, 3.41124)
 collision_mask = 9
 
 [node name="Timer" type="Timer" parent="."]

@@ -1,0 +1,210 @@
+[gd_scene load_steps=6 format=3 uid="uid://ca432ng5u5n2i"]
+
+[ext_resource type="Script" uid="uid://csmvwicpwoevs" path="res://scripts/spawner.gd" id="1_2vbf6"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_2b72u"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_b37e2"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_b5a2r"]
+albedo_color = Color(1, 0.11, 0.302833, 1)
+emission_enabled = true
+emission = Color(1, 0.16, 0.16, 1)
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_2vbf6"]
+
+[node name="spawner" type="Node3D"]
+script = ExtResource("1_2vbf6")
+
+[node name="transform" type="Node3D" parent="."]
+transform = Transform3D(0.707107, -0.707107, 0, 0.40558, 0.40558, -0.819152, 0.579228, 0.579228, 0.573576, 0, 4.44533, 0)
+
+[node name="StaticBody3D" type="StaticBody3D" parent="transform" groups=["spawner"]]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="transform/StaticBody3D"]
+shape = SubResource("BoxShape3D_2b72u")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="transform/StaticBody3D"]
+mesh = SubResource("BoxMesh_b37e2")
+surface_material_override/0 = SubResource("StandardMaterial3D_b5a2r")
+
+[node name="groundspawner" type="Node3D" parent="."]
+
+[node name="loc" type="Node3D" parent="groundspawner"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -4)
+
+[node name="Area3D" type="Area3D" parent="groundspawner/loc"]
+collision_layer = 8
+collision_mask = 8
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="groundspawner/loc/Area3D"]
+transform = Transform3D(3.7, 0, 0, 0, 3.7, 0, 0, 0, 3.7, 0, 0, 0)
+shape = SubResource("SphereShape3D_2vbf6")
+
+[node name="loc2" type="Node3D" parent="groundspawner"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4, 0, -4)
+
+[node name="Area3D" type="Area3D" parent="groundspawner/loc2"]
+collision_layer = 8
+collision_mask = 8
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="groundspawner/loc2/Area3D"]
+transform = Transform3D(3.7, 0, 0, 0, 3.7, 0, 0, 0, 3.7, 0, 0, 0)
+shape = SubResource("SphereShape3D_2vbf6")
+
+[node name="loc3" type="Node3D" parent="groundspawner"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4, 0, 0)
+
+[node name="Area3D" type="Area3D" parent="groundspawner/loc3"]
+collision_layer = 8
+collision_mask = 8
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="groundspawner/loc3/Area3D"]
+transform = Transform3D(3.7, 0, 0, 0, 3.7, 0, 0, 0, 3.7, 0, 0, 0)
+shape = SubResource("SphereShape3D_2vbf6")
+
+[node name="loc4" type="Node3D" parent="groundspawner"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4, 0, 4)
+
+[node name="Area3D" type="Area3D" parent="groundspawner/loc4"]
+collision_layer = 8
+collision_mask = 8
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="groundspawner/loc4/Area3D"]
+transform = Transform3D(3.7, 0, 0, 0, 3.7, 0, 0, 0, 3.7, 0, 0, 0)
+shape = SubResource("SphereShape3D_2vbf6")
+
+[node name="loc5" type="Node3D" parent="groundspawner"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 4)
+
+[node name="Area3D" type="Area3D" parent="groundspawner/loc5"]
+collision_layer = 8
+collision_mask = 8
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="groundspawner/loc5/Area3D"]
+transform = Transform3D(3.7, 0, 0, 0, 3.7, 0, 0, 0, 3.7, 0, 0, 0)
+shape = SubResource("SphereShape3D_2vbf6")
+
+[node name="loc6" type="Node3D" parent="groundspawner"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 0, 4)
+
+[node name="Area3D" type="Area3D" parent="groundspawner/loc6"]
+collision_layer = 8
+collision_mask = 8
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="groundspawner/loc6/Area3D"]
+transform = Transform3D(3.7, 0, 0, 0, 3.7, 0, 0, 0, 3.7, 0, 0, 0)
+shape = SubResource("SphereShape3D_2vbf6")
+
+[node name="loc7" type="Node3D" parent="groundspawner"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 0, 0)
+
+[node name="Area3D" type="Area3D" parent="groundspawner/loc7"]
+collision_layer = 8
+collision_mask = 8
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="groundspawner/loc7/Area3D"]
+transform = Transform3D(3.7, 0, 0, 0, 3.7, 0, 0, 0, 3.7, 0, 0, 0)
+shape = SubResource("SphereShape3D_2vbf6")
+
+[node name="loc8" type="Node3D" parent="groundspawner"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 0, -4)
+
+[node name="Area3D" type="Area3D" parent="groundspawner/loc8"]
+collision_layer = 8
+collision_mask = 8
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="groundspawner/loc8/Area3D"]
+transform = Transform3D(3.7, 0, 0, 0, 3.7, 0, 0, 0, 3.7, 0, 0, 0)
+shape = SubResource("SphereShape3D_2vbf6")
+
+[node name="airspawner" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 8.21646, 0)
+
+[node name="loc" type="Node3D" parent="airspawner"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -4)
+
+[node name="Area3D" type="Area3D" parent="airspawner/loc"]
+collision_layer = 8
+collision_mask = 8
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="airspawner/loc/Area3D"]
+transform = Transform3D(3.7, 0, 0, 0, 3.7, 0, 0, 0, 3.7, 0, 0, 0)
+shape = SubResource("SphereShape3D_2vbf6")
+
+[node name="loc2" type="Node3D" parent="airspawner"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4, 0, -4)
+
+[node name="Area3D" type="Area3D" parent="airspawner/loc2"]
+collision_layer = 8
+collision_mask = 8
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="airspawner/loc2/Area3D"]
+transform = Transform3D(3.7, 0, 0, 0, 3.7, 0, 0, 0, 3.7, 0, 0, 0)
+shape = SubResource("SphereShape3D_2vbf6")
+
+[node name="loc3" type="Node3D" parent="airspawner"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4, 0, 0)
+
+[node name="Area3D" type="Area3D" parent="airspawner/loc3"]
+collision_layer = 8
+collision_mask = 8
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="airspawner/loc3/Area3D"]
+transform = Transform3D(3.7, 0, 0, 0, 3.7, 0, 0, 0, 3.7, 0, 0, 0)
+shape = SubResource("SphereShape3D_2vbf6")
+
+[node name="loc4" type="Node3D" parent="airspawner"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4, 0, 4)
+
+[node name="Area3D" type="Area3D" parent="airspawner/loc4"]
+collision_layer = 8
+collision_mask = 8
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="airspawner/loc4/Area3D"]
+transform = Transform3D(3.7, 0, 0, 0, 3.7, 0, 0, 0, 3.7, 0, 0, 0)
+shape = SubResource("SphereShape3D_2vbf6")
+
+[node name="loc5" type="Node3D" parent="airspawner"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 4)
+
+[node name="Area3D" type="Area3D" parent="airspawner/loc5"]
+collision_layer = 8
+collision_mask = 8
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="airspawner/loc5/Area3D"]
+transform = Transform3D(3.7, 0, 0, 0, 3.7, 0, 0, 0, 3.7, 0, 0, 0)
+shape = SubResource("SphereShape3D_2vbf6")
+
+[node name="loc6" type="Node3D" parent="airspawner"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 0, 4)
+
+[node name="Area3D" type="Area3D" parent="airspawner/loc6"]
+collision_layer = 8
+collision_mask = 8
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="airspawner/loc6/Area3D"]
+transform = Transform3D(3.7, 0, 0, 0, 3.7, 0, 0, 0, 3.7, 0, 0, 0)
+shape = SubResource("SphereShape3D_2vbf6")
+
+[node name="loc7" type="Node3D" parent="airspawner"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 0, 0)
+
+[node name="Area3D" type="Area3D" parent="airspawner/loc7"]
+collision_layer = 8
+collision_mask = 8
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="airspawner/loc7/Area3D"]
+transform = Transform3D(3.7, 0, 0, 0, 3.7, 0, 0, 0, 3.7, 0, 0, 0)
+shape = SubResource("SphereShape3D_2vbf6")
+
+[node name="loc8" type="Node3D" parent="airspawner"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 0, -4)
+
+[node name="Area3D" type="Area3D" parent="airspawner/loc8"]
+collision_layer = 8
+collision_mask = 8
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="airspawner/loc8/Area3D"]
+transform = Transform3D(3.7, 0, 0, 0, 3.7, 0, 0, 0, 3.7, 0, 0, 0)
+shape = SubResource("SphereShape3D_2vbf6")

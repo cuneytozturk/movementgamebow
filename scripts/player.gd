@@ -31,8 +31,9 @@ var allow_dir := true
 @onready var raycast_right: RayCast3D = $camera_mount/raycast_right
 @onready var raycast_leftbutt: RayCast3D = $camera_mount/raycast_leftbutt
 @onready var raycast_rightbutt: RayCast3D = $camera_mount/raycast_rightbutt
+@onready var raycast_front: RayCast3D = $camera_mount/raycast_front
 var wallrun_ground_timer := 0.0
-@export var wallrun_cooldown_timer = 0.5
+@export var wallrun_cooldown_timer: float
 var wall_direction
 
 #headbob vars
@@ -55,8 +56,8 @@ var run_score := 0
 func _ready() -> void:
 	Global.player = self
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
-	equip_weapon(load("res://scenes/bow.tscn"))
-	
+	equip_weapon(load("res://scenes/hand.tscn"))
+	#equip_weapon(load("res://scenes/bow.tscn"))
 func _unhandled_input(event: InputEvent) -> void:
 	# handle mouse input for camera
 	if event is InputEventMouseMotion:
@@ -66,10 +67,12 @@ func _unhandled_input(event: InputEvent) -> void:
 
 	if current_weapon:
 		if event.is_action_pressed("mouseleft"):
+				equip_weapon(load("res://scenes/hand.tscn"))
 				current_weapon.start_fire()
 		elif event.is_action_released("mouseleft"):
 			current_weapon.stop_fire()
 		elif event.is_action_pressed("mouseright"):
+				equip_weapon(load("res://scenes/bow.tscn"))
 				current_weapon.start_alt_fire()
 		elif event.is_action_released("mouseright"):
 			current_weapon.stop_alt_fire()

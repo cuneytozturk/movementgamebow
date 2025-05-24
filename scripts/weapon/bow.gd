@@ -21,14 +21,14 @@ func _process(delta: float) -> void:
 		arrow.pos = string.global_position
 		arrow.rot = string.global_rotation
 	
-func start_fire():
+func start_alt_fire():
 	arrow_scene = load("res://scenes/arrow.tscn")
 	arrow = arrow_scene.instantiate()
 	get_tree().current_scene.add_child(arrow)
 	arrow.nocked = true
 	anim.play("bow/draw")
 
-func stop_fire():
+func stop_alt_fire():
 	anim.play("bow/release")
 	shoot_arrow()
 	p.camera_mount.shakeable_camera.add_trauma(bow_shake)
